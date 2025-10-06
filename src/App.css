@@ -1,67 +1,105 @@
 .app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   text-align: center;
   font-family: "Comic Sans MS", sans-serif;
-  background: #fdf6ff;
-  min-height: 100vh;
   padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f6d365, #fda085, #84fab0, #8fd3f4);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  gap: 15px;
-  justify-content: center;
-  margin-top: 30px;
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
+h1, h2 { color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+
+.timer { font-size: 1.2rem; margin: 10px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+
+.grid { display: grid; gap: 12px; justify-content: center; margin-top: 20px; width: 100%; }
+
+.grid-easy { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); max-width: 250px; }
+.grid-medium { grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); max-width: 400px; }
+.grid-hard { grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); max-width: 500px; }
+.grid-veryhard { grid-template-columns: repeat(auto-fit, minmax(55px, 1fr)); max-width: 550px; }
+.grid-extreme { grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); max-width: 600px; }
 
 .card {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  aspect-ratio: 1/1;
   font-size: 2rem;
-  background: #9b59b6;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: white;
-  transition: transform 0.3s;
+  transition: transform 0.3s, background 0.3s;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
 .card.flipped {
-  background: #fff;
+  background: rgba(255,255,255,0.9);
   color: #333;
   transform: rotateY(180deg);
-  border: 2px solid #9b59b6;
+  border: 2px solid #fff;
 }
 
-.game-over {
-  margin-top: 20px;
-}
+.game-over { margin-top: 20px; }
+.success { color: #27ae60; font-size: 1.5rem; animation: bounce 1s infinite alternate; }
+.fail { color: #e74c3c; font-size: 1.5rem; animation: shake 0.5s; }
 
-.success {
-  color: #27ae60;
-  font-size: 1.5rem;
-  animation: bounce 1s infinite alternate;
-}
-
-.restart-btn {
-  margin-top: 10px;
-  padding: 10px 20px;
+.restart-btn, .next-btn {
+  margin: 10px;
+  padding: 12px 25px;
   font-size: 1rem;
   border: none;
   border-radius: 10px;
-  background-color: #9b59b6;
-  color: white;
+  background-color: rgba(0,0,0,0.6);
+  color: #fff;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.restart-btn:hover {
-  background-color: #8e44ad;
+.restart-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.8); }
+
+@keyframes bounce { from { transform: scale(1); } to { transform: scale(1.2); } }
+@keyframes shake {
+  0% { transform: translateX(0); } 25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); }
 }
 
-@keyframes bounce {
-  from { transform: scale(1); }
-  to { transform: scale(1.2); }
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.2rem; }
+  .card { font-size: 1.5rem; }
+  .grid { gap: 8px; }
+}
+
+@media (max-width: 400px) {
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1rem; }
+  .card { font-size: 1.2rem; }
 }
